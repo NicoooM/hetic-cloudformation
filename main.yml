@@ -1,0 +1,26 @@
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+  EC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-06e7d9bed6ecdc388
+      InstanceType: t2.micro
+      Tags:
+        - Key: Name
+          Value: "Instance"
+  AWSLightSailInstance:
+    Type: "AWS::Lightsail::Instance"
+    Properties:
+      InstanceName: "MyLightSailInstance"
+      AvailabilityZone: "eu-west-3a"
+      BlueprintId: "amazon_linux_2023"
+      BundleId: "nano_2_0"
+      UserData: |
+        #!/bin/bash
+        echo "Hello, World!" > /home/ec2-user/helloworld.txt
+      Tags:
+        - Key: "Name"
+          Value: "MyLightSailInstance"
+        - Key: "Project"
+          Value: "SampleProject"
